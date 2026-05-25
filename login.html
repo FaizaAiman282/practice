@@ -4,24 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+        }
+
+        form{
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input{
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        .error{
+            color: red;
+            font-size: 14px;
+        }
+
+        button{
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
-    <form action="/login" method="post">
+    <form action="/login" method="post" onsubmit="return validateForm()">
 
         <label for="username">Username:</label>
         <input type="text" id="username" name="username">
+        <div class="error" id="userError"></div>
 
-        <br><br>
+        <br>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password">
-
-        <br><br>
+        <div class="error" id="passError"></div>
 
         <button type="submit">Login</button>
-
+        <h1>this is only witten in feature and not in main</h1>
     </form>
+
+    <script>
+        function validateForm() {
+
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            let userError = document.getElementById("userError");
+            let passError = document.getElementById("passError");
+
+            userError.innerHTML = "";
+            passError.innerHTML = "";
+
+            let isValid = true;
+
+            // Username validation
+            if (username === "") {
+                userError.innerHTML = "Username is required";
+                isValid = false;
+            }
+
+            // Password validation
+            if (password === "") {
+                passError.innerHTML = "Password is required";
+                isValid = false;
+            } else if (password.length < 6) {
+                passError.innerHTML = "Password must be at least 6 characters";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
 
 </body>
 </html>
